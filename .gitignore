@@ -1,0 +1,7 @@
+.idea/
+venv/
+*.xml
+
+**/__pycache__/
+
+src/main/resources/model/**

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank validator</title>
+    <link rel="icon" href="{{ url_for('static', filename='image/icon.png') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+    <img class="img-logo" src="{{ url_for('static', filename='image/bvlogo.png') }}"/>
+</header>
+<style>
+    @font-face {
+        font-family: Circular;
+        src: url('https://sp-bootstrap.global.ssl.fastly.net/8.3.0/fonts/circular-bold.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.3.0/fonts/circular-bold.woff') format('woff');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: CircularBlack;
+        src: url('https://sp-bootstrap.global.ssl.fastly.net/8.3.0/fonts/circular-black.woff2') format('woff2'), url('https://sp-bootstrap.global.ssl.fastly.net/8.3.0/fonts/circular-black.woff') format('woff');
+        font-weight: 900;
+        font-style: normal;
+    }
+
+    body {font-family: Circular, sans-serif;}
+
+    footer{
+        text-align: center;
+        color: #B7B7B7;
+    }
+    .img-logo{
+        margin: 3vh 0px 0px 4vw;
+    }
+
+    #content{
+        height: 85vh;
+        position: relative;
+    }
+
+    .main-title{
+        font-size: 72px;
+        color: #293179;
+        margin: 0;
+        position: absolute;
+        top: 47%;
+        -ms-transform: translateY(-47%);
+        transform: translateY(-47%);
+        left: 8%;
+        z-index: 2;
+        font-family: CircularBlack, sans-serif;
+    }
+
+    .label{
+        margin-left: 31px;
+        padding: 9px 0px;
+    }
+
+    .label > label {
+        text-transform: capitalize;
+        color: #293179;
+        padding-right: 20px;
+        font-size: 21px;
+    }
+
+    .t-num > input{
+        border: none;
+        background: #ECECEC;
+        height: 37px;
+        width: 70px;
+        font-size: 19px;
+        border-radius: 5px;
+        font-family: Circular;
+        padding-left: 10px;
+    }
+
+    .t-selc > select{
+        border: none;
+        background: #ECECEC;
+        height: 37px;
+        width: 150px;
+        border-radius: 5px;
+        font-size: 19px;
+        font-family: Circular;
+        padding-left: 10px;
+    }
+
+    .btn-start{
+        font-size: 13px;
+        color: white;
+        background-color: #293179;
+        border-radius: 100px;
+        width: 112px;
+        text-align: center;
+        padding: 11px;
+        font-weight: 900;
+        cursor: pointer;
+        margin-top: 1vw;
+    }
+
+    .bg-img{
+        position: absolute;
+        top: 59%;
+        -ms-transform: translateY(-66%);
+        transform: translateY(-66%);
+        z-index: 1;
+        right: 8%;
+        width: 63%;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(255, 255, 255, 0.73);
+        background-color: rgba(255, 255, 255, 0.73);
+
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #FFFFFF;
+        padding: 20px;
+        background: #FFFFFF;
+        box-shadow: 0px 2px 25px rgba(14, 26, 94, 0.17);
+        border-radius: 20px;
+        width: 46%;
+        height: 71%;
+        overflow-y: scroll;
+        transition-duration: 0.5s;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+    }
+
+    .modal-title{
+        font-family: Circular;
+        color: #283179;
+        font-size: 25px;
+        margin-left: 31px;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .resp{
+        display: none;
+        text-align: center;
+        margin-top: 16px;
+    }
+
+    .img-oui, .img-non{
+        height: 30px;
+    }
+
+    .text-oui{
+        color: #0094d9;
+    }
+
+    .text-non {
+        color: #fc3131;
+    }
+
+</style>
+
+<div id="content">
+    <img class="bg-img" src="{{ url_for('static', filename='image/bvbg.png') }}"/>
+    <h1 class="main-title">
+        Know instantly<br>
+        if you can have<br>
+        a credit.<br>
+        <div class="btn-start" id="myBtn">GET STARTED</div>
+    </h1>
+
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="oui resp">
+                <img class="img-oui" src="{{ url_for('static', filename='image/ui.png') }}"/>
+                <h2 class="text-oui">You can have a credit.</h2>
+            </div>
+            <div class="non resp">
+                <img class="img-non" src="{{ url_for('static', filename='image/nan.png') }}"/>
+                <h2 class="text-non">You cannot have a credit.</h2>
+            </div>
+
+            <div class="from">
+            <p class="modal-title">Please, right down your informations :</p>
+
+            <div id="inputList">
+                {%for field in fields%}
+                    {%if not field in select.keys()%}
+                    <div class="label t-num">
+                        <label>{{field.replace('_', ' ').replace('.', ' ')}}</label><input name="{{field}}" value="0" type="number"/>
+                    </div>
+                    {%else%}
+                    <div class="label t-selc">
+                        <label>{{field}}</label>
+                        <select name="{{field}}">
+                            {%for option in select[field]%}
+                                <option value="{{option}}">{{option}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    {%endif%}
+                {%endfor%}
+            </div>
+
+           <center> <div class="btn-start" id="getResult" onclick="sendRequest();">GET THE RESULT</div></center>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<footer>
+
+</footer>
+</body>
+</html>

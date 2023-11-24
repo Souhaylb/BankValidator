@@ -1,0 +1,14 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - "80:5000"
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+    environment:
+      - FLASK_CONFIGURATION=dev
+  redis:
+    image: redis
